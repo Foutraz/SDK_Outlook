@@ -1,0 +1,42 @@
+{
+  "name": "foutraz/outlook",
+  "type": "library",
+  "description": "Microsoft Graph (Outlook) calendar SDK for PHP / Laravel",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Quentin MARI",
+      "email": "quentin.mari0409@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.4",
+    "guzzlehttp/guzzle": "^7.0",
+    "illuminate/support": "^11.0|^12.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5",
+    "mockery/mockery": "^1.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Foutraz\\Outlook\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Foutraz\\Outlook\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Foutraz\\Outlook\\Providers\\OutlookServiceProvider"
+      ]
+    }
+  }
+}
