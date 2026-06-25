@@ -37,7 +37,7 @@ class ManagesAuthentication extends OutlookManager
      */
     public function exchangeToken(string $code): TokenResponse
     {
-        return TokenResponse::fromArray($this->post("https://login.microsoftonline.com/{$this->tenant}/oauth2/v2.0/token", [
+        return TokenResponse::fromArray($this->postForm("https://login.microsoftonline.com/{$this->tenant}/oauth2/v2.0/token", [
             'client_id' => $this->clientId,
             'client_secret' => $this->clientSecret,
             'code' => $code,
@@ -56,7 +56,7 @@ class ManagesAuthentication extends OutlookManager
      */
     public function refreshToken(string $refreshToken): TokenResponse
     {
-        return TokenResponse::fromArray($this->post("https://login.microsoftonline.com/{$this->tenant}/oauth2/v2.0/token", [
+        return TokenResponse::fromArray($this->postForm("https://login.microsoftonline.com/{$this->tenant}/oauth2/v2.0/token", [
             'client_id' => $this->clientId,
             'client_secret' => $this->clientSecret,
             'grant_type' => 'refresh_token',

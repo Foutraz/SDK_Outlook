@@ -61,4 +61,25 @@ abstract class TestCase extends BaseTestCase
 
         return (string) $request->getUri();
     }
+
+    protected function lastRequestContentType(): string
+    {
+        $request = end($this->history)['request'];
+
+        return $request->getHeaderLine('Content-Type');
+    }
+
+    /**
+     * Parses the last request body as a query string.
+     *
+     * @return array<string, string>
+     */
+    protected function lastRequestForm(): array
+    {
+        $request = end($this->history)['request'];
+
+        parse_str((string) $request->getBody(), $form);
+
+        return $form;
+    }
 }

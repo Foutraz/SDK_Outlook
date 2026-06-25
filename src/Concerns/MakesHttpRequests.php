@@ -98,6 +98,40 @@ trait MakesHttpRequests
             $options['query'] = $query;
         }
 
+        return $this->send($verb, $uri, $options);
+    }
+
+    /**
+     * Sends a form-urlencoded POST request and decodes the response.
+     *
+     * @param  array<string, mixed>  $form
+     *
+     * @throws ActionFailed
+     * @throws GuzzleException
+     * @throws InvalidData
+     * @throws ResourceNotFound
+     * @throws TooManyRequestsException
+     * @throws Unauthorized
+     */
+    protected function postForm(string $uri, array $form): mixed
+    {
+        return $this->send('POST', $uri, ['form_params' => $form]);
+    }
+
+    /**
+     * Dispatches the request and applies shared success and error handling.
+     *
+     * @param  array<string, mixed>  $options
+     *
+     * @throws ActionFailed
+     * @throws GuzzleException
+     * @throws InvalidData
+     * @throws ResourceNotFound
+     * @throws TooManyRequestsException
+     * @throws Unauthorized
+     */
+    protected function send(string $verb, string $uri, array $options): mixed
+    {
         $response = $this->client->request($verb, $uri, $options);
 
         if (! $this->isSuccessful($response)) {

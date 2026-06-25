@@ -50,6 +50,14 @@ class ManagesAuthenticationTest extends TestCase
         $this->assertSame('a', $token->accessToken);
         $this->assertSame('r', $token->refreshToken);
         $this->assertSame('https://login.microsoftonline.com/common/oauth2/v2.0/token', $this->lastRequestUri());
+        $this->assertSame('application/x-www-form-urlencoded', $this->lastRequestContentType());
+
+        $form = $this->lastRequestForm();
+        $this->assertSame('client-id', $form['client_id']);
+        $this->assertSame('client-secret', $form['client_secret']);
+        $this->assertSame('the-code', $form['code']);
+        $this->assertSame('https://example.test/callback', $form['redirect_uri']);
+        $this->assertSame('authorization_code', $form['grant_type']);
     }
 
     #[Test]
@@ -69,5 +77,11 @@ class ManagesAuthenticationTest extends TestCase
         $this->assertSame('a2', $token->accessToken);
         $this->assertSame('r2', $token->refreshToken);
         $this->assertNull($token->scope);
+        $this->assertSame('https://login.microsoftonline.com/common/oauth2/v2.0/token', $this->lastRequestUri());
+        $this->assertSame('application/x-www-form-urlencoded', $this->lastRequestContentType());
+
+        $form = $this->lastRequestForm();
+        $this->assertSame('refresh_token', $form['grant_type']);
+        $this->assertSame('old-refresh', $form['refresh_token']);
     }
 }
